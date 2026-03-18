@@ -8,6 +8,7 @@ export interface Contact {
   category: ContactCategory
   target_frequency_days: number
   notes: string | null
+  should_contact: boolean
   created_at: string
   updated_at: string
 }

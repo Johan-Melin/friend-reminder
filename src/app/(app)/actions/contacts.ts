@@ -55,6 +55,15 @@ export async function updateContact(id: string, formData: FormData) {
   redirect(`/contacts/${id}`)
 }
 
+export async function toggleShouldContact(id: string, current: boolean) {
+  const userId = await getUserId()
+  await getDb()`
+    UPDATE contacts SET should_contact = ${!current} WHERE id = ${id} AND user_id = ${userId}
+  `
+  revalidatePath('/dashboard')
+  revalidatePath(`/contacts/${id}`)
+}
+
 export async function deleteContact(id: string) {
   const userId = await getUserId()
 

@@ -5,6 +5,7 @@ import { getDb } from '@/lib/db'
 import { EventForm } from '@/components/events/EventForm'
 import { EventItem } from '@/components/events/EventItem'
 import { DeleteContactButton } from '@/components/contacts/DeleteContactButton'
+import { ShouldContactButton } from '@/components/contacts/ShouldContactButton'
 import { Badge } from '@/components/ui/Badge'
 import {
   formatDaysOverdue,
@@ -62,12 +63,15 @@ export default async function ContactDetailPage({
               <Badge className={getCategoryColor(contact.category)}>{capitalize(contact.category)}</Badge>
             </div>
           </div>
-          <Link
-            href={`/contacts/${contact.id}/edit`}
-            className="text-sm text-indigo-600 dark:text-indigo-400 hover:underline font-medium shrink-0"
-          >
-            Edit
-          </Link>
+          <div className="flex items-center gap-2 shrink-0">
+            <ShouldContactButton id={contact.id} shouldContact={contact.should_contact} />
+            <Link
+              href={`/contacts/${contact.id}/edit`}
+              className="text-sm text-indigo-600 dark:text-indigo-400 hover:underline font-medium"
+            >
+              Edit
+            </Link>
+          </div>
         </div>
 
         <div className="mb-4">

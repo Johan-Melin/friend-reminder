@@ -12,12 +12,14 @@ export default async function DashboardPage() {
   const contacts = (await getDb()`
     SELECT * FROM contact_with_status
     WHERE user_id = ${userId}
-    ORDER BY days_overdue DESC NULLS FIRST
+    ORDER BY should_contact DESC, days_overdue DESC NULLS FIRST
   `) as ContactWithStatus[]
 
-  const overdue = contacts.filter((c) => c.days_overdue === null || c.days_overdue > 0)
-  const upcoming = contacts.filter((c) => c.days_overdue !== null && c.days_overdue >= -7 && c.days_overdue <= 0)
-  const ok = contacts.filter((c) => c.days_overdue !== null && c.days_overdue < -7)
+  const flagged  = contacts.filter((c) => c.should_contact)
+  const rest     = contacts.filter((c) => !c.should_contact)
+  const overdue  = rest.filter((c) => c.days_overdue === null || c.days_overdue > 0)
+  const upcoming = rest.filter((c) => c.days_overdue !== null && c.days_overdue >= -7 && c.days_overdue <= 0)
+  const ok       = rest.filter((c) => c.days_overdue !== null && c.days_overdue < -7)
 
   if (contacts.length === 0) {
     return (
@@ -47,6 +49,20 @@ export default async function DashboardPage() {
           <Button size="sm">+ Add contact</Button>
         </Link>
       </div>
+
+      {flagged.length > 0 && (
+        <section>
+          <h2 className="text-sm font-semibold text-yellow-500 dark:text-yellow-400 uppercase tracking-wide mb-3 flex items-center gap-1">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+            </svg>
+            Should contact · {flagged.length}
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {flagged.map((c) => <ContactCard key={c.id} contact={c} />)}
+          </div>
+        </section>
+      )}
 
       {overdue.length > 0 && (
         <section>
