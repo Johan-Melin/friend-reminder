@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next'
+import { ToastProvider } from '@/components/ui/Toast'
 import { ServiceWorkerRegister } from '@/components/ServiceWorkerRegister'
 import './globals.css'
 
@@ -20,7 +21,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body className="antialiased">
-        {children}
+        <ToastProvider>
+          {children}
+        </ToastProvider>
         <ServiceWorkerRegister />
       </body>
     </html>

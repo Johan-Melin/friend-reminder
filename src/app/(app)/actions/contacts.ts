@@ -57,9 +57,15 @@ export async function updateContact(id: string, formData: FormData) {
 
 export async function toggleShouldContact(id: string, current: boolean) {
   const userId = await getUserId()
-  await getDb()`
-    UPDATE contacts SET should_contact = ${!current} WHERE id = ${id} AND user_id = ${userId}
-  `
+
+  try {
+    await getDb()`
+      UPDATE contacts SET should_contact = ${!current} WHERE id = ${id} AND user_id = ${userId}
+    `
+  } catch {
+    return { error: 'Failed to update' }
+  }
+
   revalidatePath('/dashboard')
   revalidatePath(`/contacts/${id}`)
 }

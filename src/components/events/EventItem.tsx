@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { updateEvent, deleteEvent } from '@/app/(app)/actions/events'
+import { useToast } from '@/components/ui/Toast'
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
 import { Select } from '@/components/ui/Select'
@@ -24,27 +25,37 @@ interface EventItemProps {
 
 export function EventItem({ event, contactId }: EventItemProps) {
   const [editing, setEditing] = useState(false)
-  const [loading, setLoading] = useState(false)
-  const [deleting, setDeleting] = useState(false)
+  const [saving, setSaving] = useState(false)
+  const [hidden, setHidden] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const { toast } = useToast()
 
   async function handleSave(formData: FormData) {
     setError(null)
-    setLoading(true)
+    setSaving(true)
     const result = await updateEvent(event.id, contactId, formData)
     if (result?.error) {
       setError(result.error)
-      setLoading(false)
+      toast('Failed to save changes', 'error')
     } else {
       setEditing(false)
-      setLoading(false)
+      toast('Entry updated')
     }
+    setSaving(false)
   }
 
   async function handleDelete() {
-    setDeleting(true)
-    await deleteEvent(event.id, contactId)
+    setHidden(true)
+    const result = await deleteEvent(event.id, contactId)
+    if (result?.error) {
+      setHidden(false)
+      toast('Failed to delete entry', 'error')
+    } else {
+      toast('Entry deleted')
+    }
   }
+
+  if (hidden) return null
 
   if (editing) {
     return (
@@ -74,12 +85,10 @@ export function EventItem({ event, contactId }: EventItemProps) {
             defaultValue={event.notes ?? ''}
             rows={2}
           />
-          {error && (
-            <p className="text-sm text-red-600 dark:text-red-400">{error}</p>
-          )}
+          {error && <p className="text-sm text-red-600 dark:text-red-400">{error}</p>}
           <div className="flex gap-2">
-            <Button type="submit" size="sm" disabled={loading}>
-              {loading ? 'Saving…' : 'Save'}
+            <Button type="submit" size="sm" disabled={saving}>
+              {saving ? 'Saving…' : 'Save'}
             </Button>
             <Button type="button" variant="secondary" size="sm" onClick={() => setEditing(false)}>
               Cancel
@@ -111,11 +120,10 @@ export function EventItem({ event, contactId }: EventItemProps) {
         </button>
         <button
           onClick={handleDelete}
-          disabled={deleting}
-          className="text-xs text-gray-400 dark:text-gray-500 hover:text-red-500 transition-colors disabled:opacity-50 px-1"
+          className="text-xs text-gray-400 dark:text-gray-500 hover:text-red-500 transition-colors px-1"
           title="Delete"
         >
-          {deleting ? '…' : '×'}
+          ×
         </button>
       </div>
     </li>

@@ -55,7 +55,11 @@ export async function updateEvent(eventId: string, contactId: string, formData: 
 export async function deleteEvent(eventId: string, contactId: string) {
   const userId = await getUserId()
 
-  await getDb()`DELETE FROM contact_events WHERE id = ${eventId} AND user_id = ${userId}`
+  try {
+    await getDb()`DELETE FROM contact_events WHERE id = ${eventId} AND user_id = ${userId}`
+  } catch {
+    return { error: 'Failed to delete entry' }
+  }
 
   revalidatePath(`/contacts/${contactId}`)
   revalidatePath('/dashboard')

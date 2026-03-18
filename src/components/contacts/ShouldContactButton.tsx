@@ -2,6 +2,7 @@
 
 import { useState, useTransition } from 'react'
 import { toggleShouldContact } from '@/app/(app)/actions/contacts'
+import { useToast } from '@/components/ui/Toast'
 
 interface ShouldContactButtonProps {
   id: string
@@ -11,13 +12,21 @@ interface ShouldContactButtonProps {
 export function ShouldContactButton({ id, shouldContact }: ShouldContactButtonProps) {
   const [active, setActive] = useState(shouldContact)
   const [pending, startTransition] = useTransition()
+  const { toast } = useToast()
 
   function handleClick(e: React.MouseEvent) {
     e.preventDefault()
     e.stopPropagation()
+    const next = !active
+    setActive(next)
     startTransition(async () => {
-      setActive((v) => !v)
-      await toggleShouldContact(id, active)
+      const result = await toggleShouldContact(id, active)
+      if (result?.error) {
+        setActive(active)
+        toast('Failed to update priority', 'error')
+      } else {
+        toast(next ? 'Marked as should contact' : 'Removed from priority')
+      }
     })
   }
 
