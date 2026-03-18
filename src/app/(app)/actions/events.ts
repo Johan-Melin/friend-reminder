@@ -33,6 +33,25 @@ export async function createEvent(contactId: string, formData: FormData) {
   revalidatePath('/dashboard')
 }
 
+export async function updateEvent(eventId: string, contactId: string, formData: FormData) {
+  const userId = await getUserId()
+
+  try {
+    await getDb()`
+      UPDATE contact_events
+      SET event_date = ${formData.get('event_date') as string},
+          type       = ${formData.get('type') as string},
+          notes      = ${(formData.get('notes') as string) || null}
+      WHERE id = ${eventId} AND user_id = ${userId}
+    `
+  } catch {
+    return { error: 'Failed to update entry' }
+  }
+
+  revalidatePath(`/contacts/${contactId}`)
+  revalidatePath('/dashboard')
+}
+
 export async function deleteEvent(eventId: string, contactId: string) {
   const userId = await getUserId()
 

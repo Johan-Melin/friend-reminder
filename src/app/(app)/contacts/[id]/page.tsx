@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation'
 import { auth } from '@/auth'
 import { getDb } from '@/lib/db'
 import { EventForm } from '@/components/events/EventForm'
-import { DeleteEventButton } from '@/components/events/DeleteEventButton'
+import { EventItem } from '@/components/events/EventItem'
 import { DeleteContactButton } from '@/components/contacts/DeleteContactButton'
 import { Badge } from '@/components/ui/Badge'
 import {
@@ -16,14 +16,6 @@ import {
   getProgressBarColor,
 } from '@/lib/utils'
 import type { ContactWithStatus, ContactEvent } from '@/lib/types'
-
-const EVENT_TYPE_LABELS: Record<string, string> = {
-  call: 'Phone call',
-  text: 'Text / Message',
-  email: 'Email',
-  'in-person': 'In person',
-  other: 'Other',
-}
 
 export default async function ContactDetailPage({
   params,
@@ -123,18 +115,7 @@ export default async function ContactDetailPage({
           <h2 className="font-semibold text-gray-900 dark:text-white mb-4">Contact history</h2>
           <ul className="flex flex-col divide-y divide-gray-100 dark:divide-gray-700">
             {eventList.map((event) => (
-              <li key={event.id} className="py-3 flex items-start justify-between gap-3">
-                <div className="flex flex-col gap-0.5">
-                  <div className="flex items-center gap-2">
-                    <span className="text-sm font-medium text-gray-900 dark:text-white">
-                      {EVENT_TYPE_LABELS[event.type] ?? event.type}
-                    </span>
-                    <span className="text-xs text-gray-400 dark:text-gray-500">{formatDate(event.event_date)}</span>
-                  </div>
-                  {event.notes && <p className="text-sm text-gray-600 dark:text-gray-400">{event.notes}</p>}
-                </div>
-                <DeleteEventButton eventId={event.id} contactId={contact.id} />
-              </li>
+              <EventItem key={event.id} event={event} contactId={contact.id} />
             ))}
           </ul>
         </div>
