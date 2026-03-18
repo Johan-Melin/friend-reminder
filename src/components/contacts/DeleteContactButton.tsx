@@ -16,7 +16,7 @@ export function DeleteContactButton({ id }: { id: string }) {
   if (confirming) {
     return (
       <div className="flex items-center gap-2">
-        <span className="text-sm text-gray-600">Are you sure?</span>
+        <span className="text-sm text-gray-600 dark:text-gray-400">Are you sure?</span>
         <Button variant="danger" size="sm" onClick={handleDelete} disabled={loading}>
           {loading ? 'Deleting…' : 'Delete'}
         </Button>
@@ -28,7 +28,7 @@ export function DeleteContactButton({ id }: { id: string }) {
   }
 
   return (
-    <Button variant="ghost" size="sm" onClick={() => setConfirming(true)} className="text-red-600 hover:bg-red-50">
+    <Button variant="ghost" size="sm" onClick={() => setConfirming(true)} className="text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950">
       Delete contact
     </Button>
   )

@@ -42,8 +42,8 @@ export function EventForm({ contactId }: EventFormProps) {
   }
 
   return (
-    <div className="bg-gray-50 border border-gray-200 rounded-xl p-4">
-      <h3 className="font-medium text-gray-900 mb-4">Log a contact</h3>
+    <div className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-4">
+      <h3 className="font-medium text-gray-900 dark:text-white mb-4">Log a contact</h3>
       <form action={handleSubmit} className="flex flex-col gap-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <Input
@@ -70,7 +70,7 @@ export function EventForm({ contactId }: EventFormProps) {
           rows={2}
         />
         {error && (
-          <p className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg px-3 py-2">
+          <p className="text-sm text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950 border border-red-200 dark:border-red-800 rounded-lg px-3 py-2">
             {error}
           </p>
         )}

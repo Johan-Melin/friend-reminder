@@ -23,12 +23,12 @@ export default async function EditContactPage({
   return (
     <div className="max-w-lg">
       <div className="flex items-center gap-3 mb-6">
-        <Link href={`/contacts/${id}`} className="text-gray-400 hover:text-gray-600 text-sm">
+        <Link href={`/contacts/${id}`} className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 text-sm">
           ← Back
         </Link>
-        <h1 className="text-xl font-bold text-gray-900">Edit contact</h1>
+        <h1 className="text-xl font-bold text-gray-900 dark:text-white">Edit contact</h1>
       </div>
-      <div className="bg-white rounded-2xl border border-gray-200 p-6">
+      <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-700 p-6">
         <ContactForm contact={contact} />
       </div>
     </div>

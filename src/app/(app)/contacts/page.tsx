@@ -18,16 +18,16 @@ export default async function ContactsPage() {
   return (
     <div className="flex flex-col gap-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-xl font-bold text-gray-900">All contacts</h1>
+        <h1 className="text-xl font-bold text-gray-900 dark:text-white">All contacts</h1>
         <Link href="/contacts/new">
           <Button size="sm">+ Add contact</Button>
         </Link>
       </div>
 
       {contacts.length === 0 ? (
-        <div className="text-center py-16 text-gray-500">
+        <div className="text-center py-16 text-gray-500 dark:text-gray-400">
           <p>No contacts yet.</p>
-          <Link href="/contacts/new" className="text-indigo-600 hover:underline text-sm mt-2 inline-block">
+          <Link href="/contacts/new" className="text-indigo-600 dark:text-indigo-400 hover:underline text-sm mt-2 inline-block">
             Add one →
           </Link>
         </div>

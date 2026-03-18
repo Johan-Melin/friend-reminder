@@ -22,10 +22,10 @@ export function getOverdueStatus(daysOverdue: number | null): 'never' | 'overdue
 export function getStatusColor(daysOverdue: number | null): string {
   const status = getOverdueStatus(daysOverdue)
   switch (status) {
-    case 'never': return 'bg-red-100 text-red-700 border-red-200'
-    case 'overdue': return 'bg-orange-100 text-orange-700 border-orange-200'
-    case 'due-soon': return 'bg-yellow-100 text-yellow-700 border-yellow-200'
-    case 'ok': return 'bg-green-100 text-green-700 border-green-200'
+    case 'never': return 'bg-red-100 dark:bg-red-950 text-red-700 dark:text-red-400 border-red-200 dark:border-red-800'
+    case 'overdue': return 'bg-orange-100 dark:bg-orange-950 text-orange-700 dark:text-orange-400 border-orange-200 dark:border-orange-800'
+    case 'due-soon': return 'bg-yellow-100 dark:bg-yellow-950 text-yellow-700 dark:text-yellow-400 border-yellow-200 dark:border-yellow-800'
+    case 'ok': return 'bg-green-100 dark:bg-green-950 text-green-700 dark:text-green-400 border-green-200 dark:border-green-800'
   }
 }
 
@@ -41,10 +41,10 @@ export function getProgressBarColor(daysOverdue: number | null): string {
 
 export function getCategoryColor(category: ContactCategory): string {
   switch (category) {
-    case 'friend': return 'bg-blue-100 text-blue-700'
-    case 'family': return 'bg-purple-100 text-purple-700'
-    case 'colleague': return 'bg-gray-100 text-gray-700'
-    case 'other': return 'bg-teal-100 text-teal-700'
+    case 'friend': return 'bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-400'
+    case 'family': return 'bg-purple-100 dark:bg-purple-950 text-purple-700 dark:text-purple-400'
+    case 'colleague': return 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300'
+    case 'other': return 'bg-teal-100 dark:bg-teal-950 text-teal-700 dark:text-teal-400'
   }
 }
 

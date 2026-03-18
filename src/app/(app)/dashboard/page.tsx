@@ -23,8 +23,8 @@ export default async function DashboardPage() {
     return (
       <div className="flex flex-col items-center justify-center text-center py-24 gap-4">
         <span className="text-5xl">👋</span>
-        <h2 className="text-xl font-semibold text-gray-900">No contacts yet</h2>
-        <p className="text-gray-500 max-w-xs">
+        <h2 className="text-xl font-semibold text-gray-900 dark:text-white">No contacts yet</h2>
+        <p className="text-gray-500 dark:text-gray-400 max-w-xs">
           Add your friends and family to start tracking when you last reached out.
         </p>
         <Link href="/contacts/new">
@@ -38,8 +38,8 @@ export default async function DashboardPage() {
     <div className="flex flex-col gap-8">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-xl font-bold text-gray-900">Dashboard</h1>
-          <p className="text-sm text-gray-500 mt-0.5">
+          <h1 className="text-xl font-bold text-gray-900 dark:text-white">Dashboard</h1>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mt-0.5">
             {contacts.length} contact{contacts.length !== 1 ? 's' : ''}
           </p>
         </div>
@@ -50,7 +50,7 @@ export default async function DashboardPage() {
 
       {overdue.length > 0 && (
         <section>
-          <h2 className="text-sm font-semibold text-red-600 uppercase tracking-wide mb-3">
+          <h2 className="text-sm font-semibold text-red-600 dark:text-red-400 uppercase tracking-wide mb-3">
             Overdue · {overdue.length}
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -61,7 +61,7 @@ export default async function DashboardPage() {
 
       {upcoming.length > 0 && (
         <section>
-          <h2 className="text-sm font-semibold text-yellow-600 uppercase tracking-wide mb-3">
+          <h2 className="text-sm font-semibold text-yellow-600 dark:text-yellow-400 uppercase tracking-wide mb-3">
             Due soon · {upcoming.length}
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -72,7 +72,7 @@ export default async function DashboardPage() {
 
       {ok.length > 0 && (
         <section>
-          <h2 className="text-sm font-semibold text-green-600 uppercase tracking-wide mb-3">
+          <h2 className="text-sm font-semibold text-green-600 dark:text-green-400 uppercase tracking-wide mb-3">
             On track · {ok.length}
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">

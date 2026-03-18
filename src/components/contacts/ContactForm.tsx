@@ -64,7 +64,7 @@ export function ContactForm({ contact }: ContactFormProps) {
       </Select>
 
       <div className="flex flex-col gap-1">
-        <label htmlFor="target_frequency_days" className="text-sm font-medium text-gray-700">
+        <label htmlFor="target_frequency_days" className="text-sm font-medium text-gray-700 dark:text-gray-300">
           Contact frequency
         </label>
         <div className="flex flex-wrap gap-2 mb-2">
@@ -72,7 +72,7 @@ export function ContactForm({ contact }: ContactFormProps) {
             <button
               key={p.days}
               type="button"
-              className="text-xs px-2.5 py-1 rounded-full border border-gray-300 hover:border-indigo-500 hover:text-indigo-600 hover:bg-indigo-50 transition-colors"
+              className="text-xs px-2.5 py-1 rounded-full border border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-400 hover:border-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-950 transition-colors"
               onClick={() => {
                 const el = document.getElementById('target_frequency_days') as HTMLInputElement
                 if (el) el.value = String(p.days)
@@ -92,7 +92,7 @@ export function ContactForm({ contact }: ContactFormProps) {
           defaultValue={contact?.target_frequency_days ?? 30}
           required
         />
-        <p className="text-xs text-gray-500">Days between contacts</p>
+        <p className="text-xs text-gray-500 dark:text-gray-400">Days between contacts</p>
       </div>
 
       <Textarea
@@ -105,7 +105,7 @@ export function ContactForm({ contact }: ContactFormProps) {
       />
 
       {error && (
-        <p className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg px-3 py-2">
+        <p className="text-sm text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950 border border-red-200 dark:border-red-800 rounded-lg px-3 py-2">
           {error}
         </p>
       )}
